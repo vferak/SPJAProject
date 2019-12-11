@@ -1,0 +1,10 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <a href="{% url 'newAccount' %}">Nový účet</a>
+    <ul>
+        {% for account in accounts %}
+            <li><a href="{% url 'accounts' %}">{{ account.name }}</a></li>
+        {% endfor %}
+    </ul>
+{% endblock %}
