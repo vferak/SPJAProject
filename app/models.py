@@ -7,6 +7,7 @@ class Account(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     name = models.CharField(max_length=50)
     dateCreated = models.DateTimeField(default=datetime.now)
+    balance = models.IntegerField(default=0)
 
 
 class Transaction(models.Model):

@@ -21,7 +21,8 @@ import app.views
 urlpatterns = [
     path('', app.views.homepage, name='homepage'),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('bank/accounts/', app.views.accountsList, name='accounts'),
+    path('bank/accounts/', app.views.accountsGetList, name='accountsGetList'),
+    path('bank/accounts/<int:account_id>/', app.views.accountsGetDetail, name='accountsGetDetail'),
     path('bank/accounts/new/', app.views.newAccount, name='newAccount'),
     path('admin/', admin.site.urls),
 ]
