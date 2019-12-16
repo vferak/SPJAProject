@@ -1,0 +1,38 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-12 mt-4">
+            <h2 class="mb-5">Mý dlužníci<span class="float-right"><a href="{% url 'newDebt' %}" class="btn btn-primary">Nový dluh</a></span>
+            </h2>
+            <div class="row">
+                <div class="col-12">
+                    {% if not debts %}
+                        <div class="alert alert-warning" role="alert">Neexistují žádné dluhy!</div>
+                    {% else %}
+                        <ul class="list-group">
+                            {% for debt in debts %}
+                                <li class="list-group-item">
+                                    {{ debt.name }} - {{ debt.note }}
+                                    <div class="btn-toolbar float-right ml-5" role="toolbar"
+                                         aria-label="Toolbar with button groups">
+                                        <div class="btn-group mr-2" role="group" aria-label="Controls">
+                                            <a href="{% url 'editDebt' debt.id %}" class="btn btn-secondary"
+                                               data-toggle="tooltip" title="Editace dluhu"><i
+                                                    class="fas fa-edit"></i></a>
+                                        </div>
+                                        <div class="btn-group" role="group" aria-label="Controls">
+                                            <a href="{% url 'deleteDebt' debt.id %}" class="btn btn-danger"
+                                               data-toggle="tooltip" title="Odstranit dluh"><i class="fas fa-trash"></i></a>
+                                        </div>
+                                    </div>
+                                    <span class="float-right">{{ debt.amount }} Kč</span>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

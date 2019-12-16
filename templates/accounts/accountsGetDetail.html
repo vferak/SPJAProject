@@ -1,7 +1,0 @@
-{% extends "base_generic.html" %}
-
-{% block content %}
-    <a href="{% url 'newAccount' %}">Nová transakce</a>
-    <h2>{{ account.name }}</h2>
-    <p>Hotovost: {{ account.balance }}</p>
-{% endblock %}

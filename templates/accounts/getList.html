@@ -1,0 +1,59 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-12 mt-4">
+            <h2 class="mb-5">Moje účty<span class="float-right"><a href="{% url 'newAccount' %}"
+                                                                   class="btn btn-primary">Nový účet</a></span></h2>
+            <div class="row">
+                {% if not accounts %}
+                    <div class="col-12">
+                        <div class="alert alert-warning" role="alert">Neexistují žádné účty!</div>
+                    </div>
+                {% else %}
+                    {% for account in accounts %}
+                        <div class="col-12">
+                            <div class="card mb-4">
+                                <h5 class="card-header"><a
+                                        href="{% url 'accountsGetDetail' account.id %}">{{ account.name }}</a></h5>
+                                <div class="card-body">
+                                    <span class="card-text font-weight-bold">{{ account.balance }} Kč</span>
+                                    <div class="btn-toolbar float-right" role="toolbar"
+                                         aria-label="Toolbar with button groups">
+                                        <div class="btn-group mr-2" role="group" aria-label="Controls">
+                                            <a href="{% url 'newTransaction' 'income' account.id %}"
+                                               class="btn btn-success" data-toggle="tooltip"
+                                               title="Nový příjem"><i class="far fa-plus-square"></i></a>
+                                            <a href="{% url 'newTransaction' 'outcome' account.id %}"
+                                               class="btn btn-danger" data-toggle="tooltip" title="Nový výdej"><i
+                                                    class="far fa-minus-square"></i></a>
+                                        </div>
+                                        <div class="btn-group" role="group" aria-label="Controls">
+                                            <a href="{% url 'editAccount' account.id %}" class="btn btn-secondary"
+                                               data-toggle="tooltip" title="Editace účtu"><i
+                                                    class="fas fa-edit"></i></a>
+                                            <a href="{% url 'deleteAccount' account.id %}" class="btn btn-danger"
+                                               data-toggle="tooltip" title="Odstranit účet"><i class="fas fa-trash"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    {% if account.getLastTransaction != null %}
+                                        {{ account.getLastTransaction.dateCreated|date:"d. m. Y" }}:
+                                        {{ account.getLastTransaction.name }}
+                                        <span class="float-right">
+                                        {% if account.getLastTransaction.type == 'income' %}+{% else %}
+                                            -{% endif %}{{ account.getLastTransaction.amount }} Kč
+                                    </span>
+                                    {% else %}
+                                        <span class="text-muted">Neexistuje transakce</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

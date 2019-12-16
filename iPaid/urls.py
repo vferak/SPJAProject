@@ -20,9 +20,17 @@ import app.views
 
 urlpatterns = [
     path('', app.views.homepage, name='homepage'),
-    path('accounts/', include('django.contrib.auth.urls')),
-    path('bank/accounts/', app.views.accountsGetList, name='accountsGetList'),
-    path('bank/accounts/<int:account_id>/', app.views.accountsGetDetail, name='accountsGetDetail'),
-    path('bank/accounts/new/', app.views.newAccount, name='newAccount'),
+    path('account/', include('django.contrib.auth.urls')),
+    path('accounts/', app.views.accountsGetList, name='accountsGetList'),
+    path('accounts/<int:account_id>/', app.views.accountsGetDetail, name='accountsGetDetail'),
+    path('accounts/new/', app.views.newAccount, name='newAccount'),
+    path('accounts/edit/<int:account_id>/', app.views.editAccount, name='editAccount'),
+    path('accounts/delete/<int:account_id>/', app.views.deleteAccount, name='deleteAccount'),
+    path('accounts/new/<transaction_type>/<int:account_id>/', app.views.newTransaction, name='newTransaction'),
+    path('accounts/transaction/delete/<int:transaction_id>/', app.views.deleteTransaction, name='deleteTransaction'),
+    path('debts/', app.views.debtsGetList, name='debtsGetList'),
+    path('debts/new/', app.views.newDebt, name='newDebt'),
+    path('debts/edit/<debt_id>', app.views.editDebt, name='editDebt'),
+    path('debts/delete/<debt_id>', app.views.deleteDebt, name='deleteDebt'),
     path('admin/', admin.site.urls),
 ]
